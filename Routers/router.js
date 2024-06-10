@@ -6,13 +6,13 @@ const express=require('express')
 const usercontroller=require('../controllers/controller')
 
 // import
-// const projectcontroller=require('../controllers/projectcontroller')
+ const productcontroller=require('../controllers/productcontroller')
 
 // import jwt middleware
-// const jwtmiddlewatre = require('../Middlewares/jwtmiddlewares')
+ const jwtmiddlewatre = require('../Middlewares/jwtmiddlewares')
 
 
-// const multerconfig = require('../Middlewares/multermiddleware')
+ const multerconfig = require('../Middlewares/multermiddleware')
 
 
 
@@ -29,10 +29,21 @@ const router=new express.Router()
 // router.post('/user/register',usercontroller.register)
 
 // b)login
-// router.post('/user/login',usercontroller.login)
+router.post('/user/login',usercontroller.login)
+
+// add product
+router.post('/products/add',multerconfig.single('image'),productcontroller.addproduct)
+
+// get product
+router.get('/product/all-product',productcontroller.GetProduct)
+
+
+
+
 
 
 // 4)export router
 
 module.exports=router
+
 

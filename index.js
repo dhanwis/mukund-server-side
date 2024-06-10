@@ -22,7 +22,7 @@ server.use(cors())
 server.use(express.json()) 
 
 // use of router by server
-//  server.use(router)
+  server.use(router)
 
 
 // server use uploads folder
