@@ -7,9 +7,9 @@ const products=require('../MODEL/productschema')
 
 // add product
 exports.addproduct=async(req,res)=>{
-    console.log('inside project add controller');
-    const userid=req.payload
-    console.log(userid);
+    // console.log('inside project add controller');
+    // const userid=req.payload
+    // console.log(userid);
 
  const  image=req.file.filename
  console.log(image);
@@ -24,7 +24,7 @@ try{
     }
     else{
         const newproduct=new products({
-            productname,description
+            productname,description,image
         })
         await newproduct.save()
         res.status(200).json(newproduct)
@@ -45,24 +45,13 @@ try{
 
 }
 
-// exports home project
 
-// exports.gethomeproject=async(req,res)=>{
- 
 
-//     try{
-//         const homeproject=await projects.find().limit(3)
-//         res.status(200).json(homeproject)
-//     }
-//     catch(err){
-//         res.status(401).json(`request failed due to ${err}`)
-//     }
-// }
-
-// all project
+// all product
 exports.GetProduct=async(req,res)=>{
     try{
-        const seeproduct=await Menu.find()
+        const seeproduct=await products.find()
+        //console.log(req);
         res.status(200).json(seeproduct)
     }
     catch(err){
@@ -74,54 +63,45 @@ exports.GetProduct=async(req,res)=>{
 }
 
 
-// userproject
-// exports.getuserprojects=async(req,res)=>{
-//     const userid=req.payload
-//     try{
-//         const userproject=await projects.find({userid})
-//        res.status(200).json(userproject)
-//     }
-//     catch(err){
-//         res.status(401).json(`Request failed due to ${err}`)
 
-//     }
-//     }
 
     // edit project
-    // exports.edituserproject=async(req,res)=>{
-    //     const {id}=req.params
-    //     const userid=req.payload
-    //     const {title,language,github,website,overview,proimage}=req.body
-    //     const uploadedprojectimage=req.file?req.file.filename:proimage
+ 
+    exports.editproduct = async (req, res) => {
+        const { id } = req.params;
+        const { productname, description,image } = req.body;
+        const uploadedproductimage = req.file ? req.file.filename : image; // Corrected assignment
+    
+        try {
+            const updateproduct = await products.findByIdAndUpdate(
+                { _id: id },
+                { productname, description, image: uploadedproductimage },
+                { new: true }
+            );
+    
+            await updateproduct.save();
+            res.status(200).json(updateproduct);
+        } catch (err) {
+            res.status(401).json(err);
+        }
+    }
 
-    //     try{
-    //         const updateproject=await projects.findByIdAndUpdate({_id:id},{title,language,github,website,overview,proimage:uploadedprojectimage,userid},{new:true})
+    // delete project
 
-    //         await updateproject.save()
-    //         res.status(200).json(updateproject)
+    exports.deleteproduct=async(req,res)=>{
+        const {id}=req.params
 
-    //     }catch(err){
-    //         res.status(401).json(err)
-    //     }
-
-    // }
-
-    // delele project
-
-    // exports.deleteproject=async(req,res)=>{
-    //     const {id}=req.params
-
-    //     try{
-    //         const removeproject=await projects.findByIdAndDelete({_id:id})
-    //         res.status(200).json(removeproject)
-
-
-    //     }catch(err){
-    //         res.status(401).json(err)
-
-    //     }
+        try{
+            const removeproduct=await products.findByIdAndDelete({_id:id})
+            res.status(200).json(removeproduct)
 
 
-    // }
+        }catch(err){
+            res.status(401).json(err)
+
+        }
+
+
+    }
 
 

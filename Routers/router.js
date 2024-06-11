@@ -37,7 +37,12 @@ router.post('/products/add',multerconfig.single('image'),productcontroller.addpr
 // get product
 router.get('/product/all-product',productcontroller.GetProduct)
 
+// edit product
+router.put('/product/edit/:id',multerconfig.single('image'),productcontroller.editproduct)
 
+
+// g)delete project
+router.delete('/product/remove/:id',productcontroller.deleteproduct)
 
 
 
