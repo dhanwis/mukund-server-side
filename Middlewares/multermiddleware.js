@@ -28,3 +28,10 @@ const multerconfig=multer({
 
 module.exports=multerconfig
 
+
+
+
+
+
+
+

@@ -2,7 +2,7 @@ const jwt=require('jsonwebtoken')
 
 
 const jwtmiddlewatre=(req,res,next)=>{
-    console.log('inside jwt middleware');
+    
   
 
 const token=req.headers['authorization'].split(' ')[1]
@@ -20,4 +20,7 @@ next()
 }
 }
 
-module.exports=jwtmiddlewatre
+module.exports=jwtmiddlewatre   
+    
+
+
