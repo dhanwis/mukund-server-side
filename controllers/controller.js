@@ -10,8 +10,8 @@ exports.login = async (req, res) => {
     const { username, password } = req.body;
   
     // Specify the email and password directly in the code
-    const specifiedUsername = "admin";
-    const specifiedPassword = "admin123";
+    const specifiedUsername = "mukund";
+    const specifiedPassword = "cutter461#";
   
     try {
       let existingUser;
