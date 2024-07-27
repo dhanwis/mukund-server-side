@@ -27,7 +27,7 @@ server.listen(PORT, ()=>{
 })
 
 server.get('/',(req,res)=>{
-    res.send(`project fair running succesfuly and ready to accept request`)
+    res.send(`server running succesfuly and ready to accept request`)
 })
 
 // // post request
