@@ -32,8 +32,7 @@ const router=new express.Router()
 router.post('/user/login',usercontroller.login)
 
 // add product
-router.post('/products/add',multerconfig.single('image'),productcontroller.addproduct)
-
+router.post('/products/add', multerconfig.array('images', 10), productcontroller.addProduct);
 // get product
 router.get('/product/all-product',productcontroller.GetProduct)
 

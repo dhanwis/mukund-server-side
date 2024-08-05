@@ -6,45 +6,49 @@ const products=require('../MODEL/productschema')
 
 
 // add product
-exports.addproduct=async(req,res)=>{
-    // console.log('inside project add controller');
-    // const userid=req.payload
-    // console.log(userid);
-
- const  image=req.file.filename
- console.log(image);
-
- const {productname,description}=req.body
-console.log(`${productname},${description}`);
-
-try{
-    const existingproduct= await products.findOne({productname})
-    if(existingproduct){
-        res.status(406).json('product already exists....please upload a new product')
+exports.addProduct = async (req, res) => {
+    // Extract the uploaded files
+    const files = req.files;
+  
+    // Log file information for debugging
+    console.log(files);
+  
+    // If no files were uploaded, return an error
+    if (!files || files.length === 0) {
+      return res.status(400).json('No files uploaded.');
     }
-    else{
-        const newproduct=new products({
-            productname,description,image
-        })
-        await newproduct.save()
-        res.status(200).json(newproduct)
-
-        
+  
+    // Extract filenames of uploaded images
+    const images = files.map(file => file.filename); 
+  
+    // Log filenames for debugging
+    console.log(images);
+  
+    // Extract product data from the request body
+    const { productname, description } = req.body;
+    console.log(`${productname}, ${description}`);
+  
+    try {
+      // Check if the product already exists
+      const existingProduct = await products.findOne({ productname });
+      if (existingProduct) {
+        return res.status(406).json('Product already exists. Please upload a new product.');
+      }
+  
+      // Create a new product with the image filenames
+      const newProduct = new products({
+        productname,
+        description,
+        images // Save the array of image filenames
+      });
+  
+      // Save the new product to the database
+      await newProduct.save();
+      res.status(200).json(newProduct);
+    } catch (err) {
+      res.status(401).json(`Request failed due to ${err}`);
     }
-
-}catch(err){
-    res.status(401).json(`resquest failed due to ${err}`)
-
-}
-
-
-
-
-
- 
-
-}
-
+  };
 
 
 // all product
