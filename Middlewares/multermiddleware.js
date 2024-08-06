@@ -21,10 +21,10 @@ const fileFilter=(req,file,callback)=>{
     }
 
 }
-const multerconfig=multer({
+const multerconfig = multer({
     storage,
     fileFilter
-})
+  }).array('image', 5)
 
 module.exports=multerconfig
 

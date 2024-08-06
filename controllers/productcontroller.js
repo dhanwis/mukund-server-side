@@ -19,10 +19,10 @@ exports.addProduct = async (req, res) => {
     }
   
     // Extract filenames of uploaded images
-    const images = files.map(file => file.filename); 
+    const image= files.map(file => file.filename); 
   
     // Log filenames for debugging
-    console.log(images);
+    console.log(image);
   
     // Extract product data from the request body
     const { productname, description } = req.body;
@@ -39,7 +39,7 @@ exports.addProduct = async (req, res) => {
       const newProduct = new products({
         productname,
         description,
-        images // Save the array of image filenames
+        image // Save the array of image filenames
       });
   
       // Save the new product to the database

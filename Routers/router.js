@@ -32,12 +32,12 @@ const router=new express.Router()
 router.post('/user/login',usercontroller.login)
 
 // add product
-router.post('/products/add', multerconfig.array('images', 10), productcontroller.addProduct);
+router.post('/products/add', multerconfig, productcontroller.addProduct);
 // get product
 router.get('/product/all-product',productcontroller.GetProduct)
 
 // edit product
-router.put('/product/edit/:id',multerconfig.single('image'),productcontroller.editproduct)
+// router.put('/product/edit/:id',multerconfig.single('image'),productcontroller.editproduct)
 
 
 // g)delete project
