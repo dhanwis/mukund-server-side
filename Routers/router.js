@@ -37,7 +37,8 @@ router.post('/products/add', multerconfig, productcontroller.addProduct);
 router.get('/product/all-product',productcontroller.GetProduct)
 
 // edit product
-// router.put('/product/edit/:id',multerconfig.single('image'),productcontroller.editproduct)
+router.put('/product/edit/:id', multerconfig, productcontroller.editProduct);
+
 
 
 // g)delete project

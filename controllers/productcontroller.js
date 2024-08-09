@@ -70,25 +70,43 @@ exports.GetProduct=async(req,res)=>{
 
 
     // edit project
- 
-    exports.editproduct = async (req, res) => {
-        const { id } = req.params;
-        const { productname, description,image } = req.body;
-        const uploadedproductimage = req.file ? req.file.filename : image; // Corrected assignment
-    
-        try {
-            const updateproduct = await products.findByIdAndUpdate(
-                { _id: id },
-                { productname, description, image: uploadedproductimage },
-                { new: true }
-            );
-    
-            await updateproduct.save();
-            res.status(200).json(updateproduct);
-        } catch (err) {
-            res.status(401).json(err);
-        }
-    }
+    exports.editProduct = async (req, res) => {
+      const { id } = req.params;
+      const { productname, description } = req.body;
+  
+      // Extract the uploaded files
+      const files = req.files;
+  
+      // Log file information for debugging
+      console.log(files);
+  
+      // If no new files are uploaded, use the existing images
+      let updatedImages;
+      if (files && files.length > 0) {
+          updatedImages = files.map(file => file.filename); // New images
+      } else {
+          updatedImages = req.body.image; // Existing images from the request body
+      }
+  
+      try {
+          // Update the product with the new data and images
+          const updatedProduct = await products.findByIdAndUpdate(
+              { _id: id },
+              {
+                  productname,
+                  description,
+                  image: updatedImages
+              },
+              { new: true }
+          );
+  
+          // Save the updated product to the database
+          await updatedProduct.save();
+          res.status(200).json(updatedProduct);
+      } catch (err) {
+          res.status(401).json(`Request failed due to ${err}`);
+      }
+  };
 
     // delete project
 
