@@ -33,12 +33,15 @@ router.post('/user/login',usercontroller.login)
 
 // add product
 router.post('/products/add', multerconfig, productcontroller.addProduct);
+
 // get product
 router.get('/product/all-product',productcontroller.GetProduct)
 
-// edit product
-router.put('/product/edit/:id', multerconfig, productcontroller.editProduct);
+// get product by id
+router.get('/product/:id', productcontroller.GetProductById);
 
+// edit product
+router.put('/product/edit/:id', multerconfig, productcontroller.editProduct);    
 
 
 // g)delete project
